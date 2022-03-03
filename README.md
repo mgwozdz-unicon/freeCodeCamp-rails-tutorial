@@ -1,24 +1,57 @@
-# README
+# Ruby on Rails Notes
+These are the notes I took while going through this free Ruby on Rails course: https://www.youtube.com/watch?v=fmyvWz5TUWg
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Install everything here: https://guides.rubyonrails.org/getting_started.html
 
-Things you may want to cover:
+## To upgrade Ruby version and install Rails:
+```
+command curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
+\curl -L https://get.rvm.io | bash -s stable
+source /Users/mgwozdz/.rvm/scripts/rvm
+rvm | head -n 1
+rvm use ruby --install --default
+gem install rails
+rails --version
+```
 
-* Ruby version
+## Start a new project:
+rails new <project name>
 
-* System dependencies
+## Start the server
+rails s
 
-* Configuration
+## Rails generate a controller for the home page:
+rails g controller home index
 
-* Database creation
+## Display report of all routes:
+rails routes
 
-* Database initialization
+## Crud scaffold for roster data model command:
+rails g scaffold roster first_name:string last_name:string email:string phone:string
 
-* How to run the test suite
+### Push model into database:
+rails db:migrate
 
-* Services (job queues, cache servers, search engines, etc.)
+## Setting up Authentication:
+rubygems.org
+search for devise
+copy version line into Gemfile
+`bundle install`
+On rubygems.org, click on the Documentation for devise
+`rails generate devise:install`
+Follow the instructions that were output, including:
+```
+rails g devise:views
+rails generate devise User
+rails db:migrate
+```
 
-* Deployment instructions
-
-* ...
+## Setting up Associations (joining two db tables):
+https://edgeguides.rubyonrails.org/association_basics.html
+In roster data model, add "belongs_to :user".
+In user data model, add "has_many :rosters"
+In terminal, generate migration to add user_id to rosters table as an index. Then push the migration.
+```
+rails g migration add_user_id_to_rosters user_id:integer:index
+rails db:migrate
+```
