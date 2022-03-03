@@ -1,0 +1,8 @@
+<div class="jumbotron">
+  <h1 class="display-4"><%= @roster.first_name %> <%= @roster.last_name %></h1>
+  <p class="lead"><%= @roster.email %>    | <%= @roster.phone %></p>
+  <br/>
+  <%= link_to "Edit", edit_roster_path(@roster), class:"btn btn-secondary" %> 
+  <%= link_to "Delete", @roster, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  <%= link_to "Back", rosters_path, class:"btn btn-dark" %>
+</div>

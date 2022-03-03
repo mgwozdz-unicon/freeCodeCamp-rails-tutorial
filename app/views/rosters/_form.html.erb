@@ -1,0 +1,37 @@
+<%= form_with(model: roster) do |form| %>
+  <% if roster.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(roster.errors.count, "error") %> prohibited this roster from being saved:</h2>
+
+      <ul>
+        <% roster.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.text_field :first_name, class:"form-control", placeholder:"First Name" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :last_name, class:"form-control", placeholder:"Last Name" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :email, class:"form-control", placeholder:"Email" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :phone, class:"form-control", placeholder:"Phone" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.number_field :user_id, id: :roster_user_id, class:"form-control", value: current_user.id, type: :hidden %>
+  </div>
+
+  <div>
+    <%= form.submit class: 'btn btn-secondary' %>
+  </div>
+<% end %>

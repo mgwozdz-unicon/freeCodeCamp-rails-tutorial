@@ -1,0 +1,36 @@
+<div id="rosters">
+  <% if !@rosters.kind_of?(Array) %>
+    <% @rosters = [@rosters] %>
+  <% end %>
+  <% if @rosters.empty? %>
+    <div>
+      No students in roster.
+    </div>
+    <br/>
+  <% else %>
+    <table class="table table-striped table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @rosters.each do |roster| %>
+          <% if roster['user_id'] == current_user.id %>
+            <tr>
+              <td><%= link_to roster['first_name'] + ' ' + roster['last_name'], roster_path(roster['id']) %></td>
+              <td><%= roster['email'] %></td>
+              <td><%= roster['phone'] %></td>
+              <td><%= link_to "Delete", roster_path(roster['id']), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-outline-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        <% end %>  
+      </tbody>
+    </table>
+  <% end %>
+</div>
+
+<%= link_to "New Student", new_roster_path, class: "btn btn-secondary" %>
