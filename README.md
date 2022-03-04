@@ -66,10 +66,13 @@ In the terminal, enter `heroku login` to login to the CLI
 `heroku create`
 This will output the url for your app. You can change the name of the app...
 `heroku rename railsroster`
-
-
-
-
-
-
-
+The url for the app is now https://railsroster.herokuapp.com/
+Add your SSH keys:
+`heroku keys:add`
+Switch the `sqlite3` gem to only be used in development and create a new group in the Gemfile for production and have it use the postgres (pg) gem instead.
+`bundle install --without production`
+Commit your changes to git with the usual `git add .`, `git commit -am 'added pg to production'`, `git push`
+Push to heroku with `git push heroku main`
+If there are errors, follow the instructions in the output to resolve them. Then commit the changes and push them to main and retry the push to heroku.
+Push database migrations to heroku: `heroku run rails db:migrate`
+Your app should now be running on https://railsroster.herokuapp.com/
